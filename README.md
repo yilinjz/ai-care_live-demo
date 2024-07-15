@@ -1,1 +1,1 @@
-# ai-care_live-demo
+# AI-CARE Live Demo

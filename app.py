@@ -1,7 +1,8 @@
 import gradio as gr
 
 from const import DEMO_IMG_DICT
-
+from utils import get_demo_img_by_id
+from backend import update_demo_img
 
 def create_interface():
     '''
@@ -16,13 +17,16 @@ def create_interface():
           # select demo image
           with gr.Column():
             # default image
-            demo_img = gr.Image("images\demo_scene_view_1.jpg")
-            demo_img_dropdown = gr.Dropdown(DEMO_IMG_DICT.keys(), label="select view")
+            demo_img = gr.Image(get_demo_img_by_id('default'), interactive=False)
+            demo_img_dropdown = gr.Dropdown(DEMO_IMG_DICT.keys(), value='view_1', label="select view")
           with gr.Column():
-            demo_yolo_result = gr.Image()
+            demo_yolo_img = gr.Image(interactive=False)
           with gr.Column():
             chatbot = gr.Chatbot()
             voice_input = gr.Audio(sources=["microphone"])
+
+      # Add Event Listener
+      demo_img_dropdown.input(update_demo_img, demo_img_dropdown, [demo_img, demo_yolo_img])
 
       with gr.Tab("Interactive English Demo"):
          pass
