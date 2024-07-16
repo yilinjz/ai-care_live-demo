@@ -43,7 +43,10 @@ def create_interface():
                choices=get_question_list_by_id(default_img_id),
                interactive=True
               )
-            demo_voice_output = gr.Audio(label="Listen To AI-Care's Response")
+            demo_voice_output = gr.Audio(
+               label="Listen To AI-Care's Response",
+               interactive=False
+              )
 
       # Add Event Listener
       demo_img_dropdown.input(update_demo_img, demo_img_dropdown, [demo_img, demo_yolo_img, demo_question_dropdown])
