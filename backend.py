@@ -1,9 +1,12 @@
-import PIL
+import PIL.Image
 import numpy as np
+import gradio as gr
 
-from utils import get_demo_img_by_id
+from utils import get_demo_img_by_id, get_question_list_by_id
 
 
+####################   Image Processing   #################### 
+              
 def get_yolo_img(input_img):
         '''
         get img with yolo class labels
@@ -23,9 +26,31 @@ def get_yolo_img(input_img):
 def update_demo_img(img_id):
     '''
     update displayed image when user select from dropdown
+    
+    also changes the list of demo questions to match the new image
     '''
 
     new_demo_img = PIL.Image.open(get_demo_img_by_id(img_id))
     new_yolo_img = get_yolo_img(new_demo_img)
+    new_demo_question_dropdown = gr.Dropdown(
+        label="Select Question To Ask",
+        choices=get_question_list_by_id(img_id),
+        interactive=True
+    )
 
-    return new_demo_img, new_yolo_img
+    return new_demo_img, new_yolo_img, new_demo_question_dropdown
+
+####################   Chat   ####################
+
+def get_llm_response(message, chat_history):
+        '''
+        get response from llm
+        '''
+        # placeholder for now #
+        import random
+        bot_message = random.choice(["How are you?", "I love you", "I'm very hungry"])
+        chat_history.append((message, bot_message))
+        # placeholder for now #
+        return chat_history
+
+####################   Audio   ####################
