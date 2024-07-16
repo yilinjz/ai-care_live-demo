@@ -1,13 +1,10 @@
+import PIL
 import numpy as np
-from PIL import Image
 
 from utils import get_demo_img_by_id
 
-def update_demo_img(img_id):
-    '''
-    update displayed image when user select from dropdown
-    '''
-    def get_yolo_img(input_img):
+
+def get_yolo_img(input_img):
         '''
         get img with yolo class labels
         '''
@@ -23,9 +20,12 @@ def update_demo_img(img_id):
         return sepia_img
         # placeholder for now #
 
-    print(get_demo_img_by_id(img_id))
+def update_demo_img(img_id):
+    '''
+    update displayed image when user select from dropdown
+    '''
 
-    new_demo_img = Image.open(get_demo_img_by_id(img_id))
+    new_demo_img = PIL.Image.open(get_demo_img_by_id(img_id))
     new_yolo_img = get_yolo_img(new_demo_img)
 
     return new_demo_img, new_yolo_img

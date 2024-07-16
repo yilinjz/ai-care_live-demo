@@ -1,4 +1,4 @@
-# Demo Image 
+# Demo Image Paths
 DEMO_IMG_DICT = {
     "view_1": "images\demo_scene_view_1.jpg",
     "view_2": "images\demo_scene_view_2.jpg",
