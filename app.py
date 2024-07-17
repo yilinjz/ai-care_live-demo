@@ -2,7 +2,7 @@ import PIL.Image
 import gradio as gr
 
 from utils import get_demo_img_id_list, get_demo_img_by_id, get_question_list_by_id
-from backend import get_yolo_img, update_demo_img, get_llm_response
+from backend import get_yolo_img, update_demo_img, get_demo_response, get_llm_response
 
 
 def create_interface():
@@ -25,7 +25,7 @@ def create_interface():
             )
             # select demo image from dropdown
             demo_img_dropdown = gr.Dropdown(
-               label="Select View", 
+               label="select view", 
                choices=get_demo_img_id_list(), 
                value=default_img_id,
                interactive=True
@@ -37,25 +37,52 @@ def create_interface():
                interactive=False
               )
           with gr.Column():
-            demo_chatbot = gr.Chatbot(label="Chat")
+            demo_chatbot = gr.Chatbot(
+              label="Chat"
+              )
             demo_question_dropdown = gr.Dropdown(
-               label="Select Question To Ask",
+               label="select question to ask",
                choices=get_question_list_by_id(default_img_id),
                interactive=True
               )
             demo_voice_output = gr.Audio(
-               label="Listen To AI-Care's Response",
+               label="listen to speech audio",
                interactive=False
               )
 
       # Add Event Listener
       demo_img_dropdown.input(update_demo_img, demo_img_dropdown, [demo_img, demo_yolo_img, demo_question_dropdown])
-      demo_question_dropdown.input(get_llm_response, [demo_question_dropdown, demo_chatbot], demo_chatbot)
+      demo_question_dropdown.input(get_demo_response, [demo_question_dropdown, demo_chatbot], demo_chatbot)
 
       # Tab 2: Interactive Demo (English)
       with gr.Tab("Interactive Demo"):
-         # text_input.submit(get_llm_response, [text_input, chatbot], [text_input, chatbot])
-         pass
+         # Layout: (1) Raw Scene Image (2) Yolo-Processed Scene Image (3) Chatbot 
+        with gr.Row():
+          with gr.Column():
+            live_img = gr.Image(
+              label="Scene Image", 
+              interactive=True
+            )
+          with gr.Column():
+            live_yolo_img = gr.Image(
+               label="Object Detection Result", 
+               interactive=False
+              )
+          with gr.Column():
+            live_chatbot = gr.Chatbot(
+              label="Chat"
+            )
+            live_text_input = gr.Textbox(
+              label="send a message",
+               interactive=True
+            )
+            live_voice_output = gr.Audio(
+               label="listen to speech audio",
+               interactive=False
+              )
+        
+        # Add Event Listener
+        live_text_input.submit(get_llm_response, [live_text_input, live_chatbot], [live_text_input, live_chatbot])
     
     return user_interface
 

@@ -1,8 +1,8 @@
 # Demo Images
 DEMO_IMG_LIST = {
-    "view_1": "images\demo_scene_view_1.jpg",
-    "view_2": "images\demo_scene_view_2.jpg",
-    "view_3": "images\demo_scene_view_3.jpg",
+    "view_1": "images/demo_scene_view_1.jpg",
+    "view_2": "images/demo_scene_view_2.jpg",
+    "view_3": "images/demo_scene_view_3.jpg",
 }
 
 # Demo Questions

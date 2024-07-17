@@ -42,7 +42,7 @@ def update_demo_img(img_id):
 
 ####################   Chat   ####################
 
-def get_llm_response(message, chat_history):
+def get_demo_response(message, chat_history):
         '''
         get response from llm
         '''
@@ -52,5 +52,16 @@ def get_llm_response(message, chat_history):
         chat_history.append((message, bot_message))
         # placeholder for now #
         return chat_history
+
+def get_llm_response(message, chat_history):
+        '''
+        get response from llm
+        '''
+        # placeholder for now #
+        import random
+        bot_message = random.choice(["How are you?", "I love you", "I'm very hungry"])
+        chat_history.append((message, bot_message))
+        # placeholder for now #
+        return "", chat_history
 
 ####################   Audio   ####################
